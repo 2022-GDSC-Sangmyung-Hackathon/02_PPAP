@@ -1,0 +1,275 @@
+/* Fix user-agent */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+html,
+input {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande",
+    sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+  word-wrap: break-word;
+}
+
+/* Pages */
+
+.pages {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.page {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+/* Login Page */
+
+.login.page {
+  background-color: #000;
+}
+
+.login.page .form {
+  height: 100px;
+  margin-top: -100px;
+  position: absolute;
+
+  text-align: center;
+  top: 50%;
+  width: 100%;
+}
+
+.login.page .form .usernameInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 400px;
+}
+
+.login.page .title {
+  font-size: 200%;
+}
+
+.login.page .usernameInput {
+  font-size: 200%;
+  letter-spacing: 3px;
+}
+
+.login.page .title,
+.login.page .usernameInput {
+  color: #fff;
+  font-weight: 100;
+}
+
+/* Chat page */
+
+.chat.page {
+  display: none;
+}
+
+/* Font */
+
+.messages {
+  font-size: 150%;
+}
+
+.inputMessage {
+  font-size: 100%;
+}
+
+.log {
+  color: gray;
+  font-size: 70%;
+  margin: 5px;
+  text-align: center;
+}
+
+/* Messages */
+
+.chatArea {
+  height: 100%;
+  padding-bottom: 60px;
+}
+
+.messages {
+  height: 100%;
+  margin: 0;
+  overflow-y: scroll;
+  padding: 10px 20px 10px 20px;
+}
+
+.message.typing .messageBody {
+  color: gray;
+}
+
+.username {
+  font-weight: 700;
+  overflow: hidden;
+  padding-right: 15px;
+  text-align: right;
+}
+
+/* Input */
+
+.inputMessage {
+  border: 10px solid #000;
+  bottom: 0;
+  height: 60px;
+  left: 0;
+  outline: none;
+  padding-left: 10px;
+  position: absolute;
+  right: 0;
+  width: 100%;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+/* clearfix */
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* 헤더 */
+.header-background {
+  top: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 999;
+  border-bottom: solid 1px black;
+}
+.header {
+  margin-left: 250px;
+  width: 1000px;
+}
+.header-heading {
+  float: left;
+  padding: 24px 0;
+  font-size: 10px;
+}
+.header-heading a {
+  position: relative;
+  display: block;
+  width: 75px;
+  height: 75px;
+  line-height: 75px;
+  text-align: center;
+}
+.header-heading a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../img/logo.png) no-repeat;
+}
+.utility {
+  float: left;
+  min-width: 500px;
+  margin-top: 15px;
+  margin-left: 150px;
+}
+/* 채팅 메뉴 조절 */
+.utility-list {
+  float: left;
+  padding-top: 35px;
+  padding-left: 10px;
+}
+.utility-list li {
+  position: relative;
+  float: left;
+}
+.utility-list li::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 0;
+  color: aquamarine;
+}
+.utility-list li:last-child::after {
+  content: "";
+}
+.utility-list li a {
+  display: block;
+  padding: 10px 10px;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 1.8rem;
+  padding-right: 30px;
+  color: #555;
+}
+.utility-list li a:hover,
+.utility-list li a:focus {
+  padding-left: 15px;
+  color: white;
+  background-color: rgb(199, 228, 255);
+}
+
+.navigation {
+  float: right;
+  margin-top: 19px;
+}
+.menu-item {
+  float: right;
+  padding-left: 30px;
+}
+.sub-menu-heading a {
+  padding-right: 0px;
+
+  content: "|";
+  font-size: 1.3rem;
+  font-weight: 300;
+  font-family: "Noto Sans", sans-serif;
+  color: #333;
+}
+.sub-menu-heading a:hover,
+.sub-menu-heading a:focus {
+  text-decoration: underline;
+  content: "|";
+  color: white;
+  background-color: rgb(199, 228, 255);
+}
+
+.article {
+  padding-left: 220px;
+  padding-top: 100px;
+}
+
+#mimoj {
+}
+
+h1 {
+  line-height: 70px;
+}
+
+.box gender_code {
+  padding-left: 15px;
+}
+
+select {
+  background-image: url(gender.png);
+}
