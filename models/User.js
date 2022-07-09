@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
   id: {
     type: String,
-    required: [true, "Username is required!"],
+    // required: [true, "Username is required!"],
     trim: true,
   },
   password: {
     type: String,
-    required: [true, "Password is required!"],
+    // required: [true, "Password is required!"],
     select: false,
     trim: true,
   },
@@ -24,6 +24,15 @@ const userSchema = mongoose.Schema({
   },
   age: {
     type: Number,
+    required: true,
+    trim: true,
+  },
+  area: {
+    type: String,
+    trim: true,
+  },
+  gender: {
+    type: String,
     required: true,
     trim: true,
   },

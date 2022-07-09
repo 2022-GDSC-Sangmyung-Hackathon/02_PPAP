@@ -3,6 +3,7 @@ var express = require("express");
 var app = express();
 var path = require("path");
 var cookieParser = require("cookie-parser");
+var expressSession = require("express-session");
 var logger = require("morgan");
 var bodyParser = require("body-parser");
 var server = require("http").createServer(app);
@@ -49,6 +50,15 @@ app.use(cookieParser());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+
+app.use(cookieParser());
+app.use(
+  expressSession({
+    secret: process.env.SESSION_SECRET_KEY,
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 /* --------------------------------------------- */
 let numUsers = 0;

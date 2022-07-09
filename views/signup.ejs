@@ -14,7 +14,7 @@
 
 
         <!-- wrapper -->
-        <form action = "*" accept-charset ="utf-8" method="post">
+        <form action = "/signup" accept-charset ="utf-8" method="post">
         <div id="wrapper">
 
             <!-- content-->
@@ -47,7 +47,7 @@
                         <!-- BIRTH_YY -->
                         <div id="age">
                             <span class="box">
-                                <input type="text" id="age" class="int" maxlength="4" placeholder="ex) 20" name="birth">
+                                <input type="text" id="age" class="int" maxlength="4" placeholder="ex) 20" name="age">
                             </span>
                         </div>
 
@@ -70,10 +70,10 @@
                 <div>
                     <h3 class="join_title"><label for="gender">성별</label></h3>
                     <span class="box gender_code">
-                        <select id="gender" class="sel">
+                        <select id="gender" class="sel" name="gender">
                             <option>성별</option>
-                            <option value="M">남자</option>
-                            <option value="F">여자</option>
+                            <option value="Male">남자</option>
+                            <option value="Female">여자</option>
                         </select>                            
                     </span>
                     <span class="error_next_box">필수 정보입니다.</span>
@@ -103,10 +103,11 @@
                 
                 </div> -->
 
+                
 
                 <!-- JOIN BTN-->
                 <div class="btn_area">
-                    <button type = "submit " id="btnJoin" onclick="location.href='main.html'" >
+                    <button type = "submit " id="btnJoin">
                         <span>가입하기</span>
                     </button>
                 </div>
@@ -121,5 +122,6 @@
         <!-- wrapper -->
         </div>
         </form>
+        <script src="javascripts/validationSignUpForm.js"></script>
     </body>
 </html>

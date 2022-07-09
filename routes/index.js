@@ -65,5 +65,17 @@ router.get("/signup", (req, res, next) => {
   res.render("signup.ejs");
 });
 
+router.post("/signup", (req, res, next) => {
+  try {
+    new User.create(req.body, (err, user) => {
+      if (err) return res.json(err);
+
+      res.render("matching.ejs");
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 router.get("matching.ejs");
 module.exports = router;
