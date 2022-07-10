@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>게시판</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- 폰트 -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Noto+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400&display=swap" rel="stylesheet" />
+
+    <!-- CSS 링크 -->
+
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <link rel="stylesheet" href="../css/select.css" />
+    <link rel="stylesheet" href="../css/board.css" />
+    <link rel="script" href="../javascript/board.js" />
+  </head>
+
+  <body>
+    <div style="width: 1920px; height: 1080px">
+      <!-- 헤더 -->
+      <div class="header-background">
+        <header id="header" class="header clearfix">
+          <h1 class="header-heading" style="font-size: 30px">
+            <a href="/" title="메인 화면으로 이동합니다."><img id="mainlogo" src="../image/logo.png" alt="" /></a>
+          </h1>
+
+          <nav class="utility clearfix">
+            <ul class="utility-list clearfix" style="padding-right: 100px">
+              <li><a href="../chat/">채팅 </a></li>
+              <li><a href="#">커뮤니티</a></li>
+              <li><a href="../zoayo"> 좋아요</a></li>
+              <li><a href="../matching"> 매칭</a></li>
+              <li><a href="#">마이페이지</a></li>
+            </ul>
+
+            <li class="menu-item">
+              <h3 class="sub-menu-heading"><a class="menu-heading">로그인</a></h3>
+            </li>
+            <li class="menu-item">
+              <h3 class="sub-menu-heading" style="margin-left: 25px">
+                <a href="login.html" class="menu-heading">회원가입</a>
+              </h3>
+            </li>
+          </nav>
+        </header>
+
+        <h2 style="margin-left: 250px">
+          MBTI별 <span style="color: rgb(199, 228, 255); font-size: 15px"> 게시판</span> 입니다.
+        </h2>
+        <br />
+        <br />
+
+        <div class="dropdown2">
+          <button class="dropbtn2" type="button" style="margin-left: 250px">
+            <span class="dropbtn_icon2"> </span>
+            질문
+          </button>
+        </div>
+
+        <div class="dropdown2">
+          <button class="dropbtn2" type="button">
+            <span class="dropbtn_icon2"> </span>
+            밸런스 게임
+          </button>
+        </div>
+
+        <div class="dropdown2">
+          <button class="dropbtn2" type="button">
+            <span class="dropbtn_icon2"> </span>
+            궁합
+          </button>
+        </div>
+
+        <div class="dropdown2">
+          <button class="dropbtn2" type="button">
+            <span class="dropbtn_icon2"> </span>
+            잡담
+          </button>
+        </div>
+
+        <div class="dropdown2">
+          <button class="dropbtn2" type="button">
+            <span class="dropbtn_icon2"> </span>
+            기타
+          </button>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div>
+        <div id="board">
+          <input type="text" id="mykeyword" placeholder="검색어를 입력하세요" style="margin-left: 450px" />
+          <br />
+          <br />
+          <table id="myTable" style="margin-left: 250px">
+            <thead>
+              <tr>
+                <th scope="col" class="th-num" style="font-size: 15px">분류</th>
+                <th scope="col" class="th-title" style="font-size: 15px">제목</th>
+                <th scope="col" class="th-date" style="font-size: 15px">날짜</th>
+                <th scope="col" class="th-date" style="font-size: 15px">조회수</th>
+              </tr>
+            </thead>
+            <tbody id="myTable_tbody">
+              <% for(let i = 0; i < list.length; i++) { %>
+              <tr>
+                <td>질문</td>
+                <th style="text-align: center">
+                  <a href="/celebA"><%= list[i].title %></a>
+                </th>
+                <td><%= list[i].createdAt %></td>
+                <td><%= views[i] %></td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        <div id="forumfooter">
+          <button onclick="location.href = '/posts/ForumSub'" type="button" class="fbtn">게시글 작성</button>
+          <button type="button" class="fbtn">글 수정 / 삭제</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    $(document).ready(function () {
+      $("#mykeyword").keyup(function () {
+        var value = $(this).val().toLowerCase();
+        $("#myTable_tbody tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        }); // $("#myTable > tbody > tr").hide(); // var temp = $("#myTable > tbody > tr > td:nth-child(5n+4):contains('" + value + "')"); // $(temp).parent().show();
+      });
+    });
+  </script>
+</html>

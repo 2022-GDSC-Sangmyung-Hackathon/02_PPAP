@@ -273,3 +273,8 @@ h1 {
 select {
   background-image: url(gender.png);
 }
+
+#mainlogo {
+  width: 230px;
+  height: 80px;
+}

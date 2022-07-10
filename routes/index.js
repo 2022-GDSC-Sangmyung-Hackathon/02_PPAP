@@ -2,63 +2,27 @@ var express = require("express");
 var router = express.Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
-
-const user1 = new User({
-  id: "test",
-  password: "dsadsa",
-  nickname: "hello",
-  mbti: "INTP",
-  age: 32,
-});
-
-const user2 = new User({
-  id: "test",
-  password: "dsadsa",
-  nickname: "hello",
-  mbti: "INTP",
-  age: 32,
-});
-
-const user3 = new User({
-  id: "test",
-  password: "dsadsa",
-  nickname: "hello",
-  mbti: "INTP",
-  age: 32,
-});
-
-const user4 = new User({
-  id: "test",
-  password: "dsadsa",
-  nickname: "hello",
-  mbti: "INTP",
-  age: 32,
-});
-
-const user5 = new User({
-  id: "test",
-  password: "dsadsa",
-  nickname: "hello",
-  mbti: "INTP",
-  age: 32,
-});
+const path = require("path");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  User.create(user1, function (err, user) {});
-  res.render("main", { title: "Express" });
+  res.render("main");
 });
 
-router.get("/chat2", function (req, res, next) {
-  res.render("chat/chat2.ejs");
+router.get("/chat", function (req, res, next) {
+  res.sendFile(path.join(__dirname, "..", "views", "chat", "/chatting.html"));
 });
 
 router.get("/zoayo", (req, res, next) => {
-  res.render("zoayo.ejs");
+  const user = User.find({}, (error, user) => {
+    res.render("zoayo.ejs", { user: user });
+  });
 });
 
 router.get("/matching", (req, res, next) => {
-  res.render("matching.ejs");
+  const user = User.find({}, (error, user) => {
+    res.render("matching.ejs", { user: user });
+  });
 });
 
 router.get("/signup", (req, res, next) => {
@@ -67,15 +31,27 @@ router.get("/signup", (req, res, next) => {
 
 router.post("/signup", (req, res, next) => {
   try {
-    new User.create(req.body, (err, user) => {
+    User.create(req.body, (err, user) => {
       if (err) return res.json(err);
 
-      res.render("matching.ejs");
+      res.redirect("/");
     });
   } catch (error) {
     console.error(error);
   }
 });
+
+// router.get("/community", (req, res, next) => {
+//   const user = User.find({}, (error, user) => {
+//     res.render("community.ejs", { user: user });
+//   });
+// });
+
+router.get("/community", (req, res, next) => {
+  res.render("community.ejs");
+});
+
+router.get("/community/:id");
 
 router.get("matching.ejs");
 module.exports = router;

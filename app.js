@@ -12,6 +12,7 @@ require("dotenv").config();
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
+const http = require("http").Server(app);
 const mongoose = require("mongoose");
 
 mongoose
@@ -27,12 +28,13 @@ mongoose
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var postsRouter = require("./routes/posts");
 
 var port = normalizePort(process.env.PORT || "3000");
 
-server.listen(port, () => {
-  console.log("Server listening at port %d", port);
-});
+// server.listen(port, () => {
+//   console.log("Server listening at port %d", port);
+// });
 
 server.on("error", onError);
 server.on("listening", onListening);
@@ -50,6 +52,7 @@ app.use(cookieParser());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/posts", postsRouter);
 
 app.use(cookieParser());
 app.use(
@@ -61,75 +64,25 @@ app.use(
 );
 
 /* --------------------------------------------- */
-let numUsers = 0;
+let room = ["room1", "room2", "room3"];
+let a = 0;
 
-io.on("connection", (socket) => {
-  let addedUser = false;
+app.io = require("socket.io")();
 
-  // when the client emits 'new message', this listens and executes
-  socket.on("new message", (data) => {
-    // we tell the client to execute 'new message'
-    socket.broadcast.emit("new message", {
-      username: socket.username,
-      message: data,
-    });
-  });
+app.io.on("connection", (socket) => {
+  console.log("유저가 들어왔다.");
 
-  // when the client emits 'add user', this listens and executes
-  socket.on("add user", (username) => {
-    if (addedUser) return;
-
-    // we store the username in the socket session for this client
-    socket.username = username;
-    ++numUsers;
-    addedUser = true;
-    socket.emit("login", {
-      numUsers: numUsers,
-    });
-    // echo globally (all clients) that a person has connected
-    socket.broadcast.emit("user joined", {
-      username: socket.username,
-      numUsers: numUsers,
-    });
-  });
-
-  // when the client emits 'typing', we broadcast it to others
-  socket.on("typing", () => {
-    socket.broadcast.emit("typing", {
-      username: socket.username,
-    });
-  });
-
-  // when the client emits 'stop typing', we broadcast it to others
-  socket.on("stop typing", () => {
-    socket.broadcast.emit("stop typing", {
-      username: socket.username,
-    });
-  });
-
-  // when the user disconnects.. perform this
-  socket.on("disconnect", () => {
-    if (addedUser) {
-      --numUsers;
-
-      // echo globally that this client has left
-      socket.broadcast.emit("user left", {
-        username: socket.username,
-        numUsers: numUsers,
-      });
-    }
-  });
-
-  /* ------------------------------------------------ */
-
-  let room = [];
-  for (let i = 0; i < 10; i++) {
-    room.push(`room${i}`);
-  }
-
+  // 요거 추가
   socket.on("joinRoom", (num, name) => {
     socket.join(room[num], () => {
-      io.to(room[num]).emit("leaveRoom", num, name);
+      app.io.to(room[num]).emit("joinRoom", num, name);
+    });
+  });
+
+  // 요거 추가
+  socket.on("leaveRoom", (num, name) => {
+    socket.leave(room[num], () => {
+      app.io.to(room[num]).emit("leaveRoom", num, name);
     });
   });
 
@@ -142,6 +95,13 @@ io.on("connection", (socket) => {
     app.io.to(room[a]).emit("chat-msg", name, msg); // to(room[a])를 통해 그룹에게만 메세지를 날린다.
   });
 });
+
+http.listen(port, () => {
+  console.log(`Socket.IO server running at http://localhost:${port}/`);
+});
+app.io.attach(http);
+
+/* ------------------------------------------------ */
 
 /* ------------------------------------------------ */
 
